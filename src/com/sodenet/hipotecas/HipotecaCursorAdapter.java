@@ -7,6 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CursorAdapter;
 import android.widget.TextView;
+import android.graphics.Color;
 
 public class HipotecaCursorAdapter extends CursorAdapter
 {
@@ -20,13 +21,22 @@ public class HipotecaCursorAdapter extends CursorAdapter
 		dbAdapter.abrir();
 	}
 
-	@Override
-	public void bindView(View view, Context context, Cursor cursor)
-	{      
-		TextView tv = (TextView) view ;
-		
-		tv.setText(cursor.getString(cursor.getColumnIndex(HipotecaDbAdapter.C_COLUMNA_NOMBRE)));
-	}
+    @Override
+    public void bindView(View view, Context context, Cursor cursor)
+    {
+        TextView tv = (TextView) view ;
+
+        tv.setText(cursor.getString(cursor.getColumnIndex(HipotecaDbAdapter.C_COLUMNA_NOMBRE)));
+
+        if (cursor.getString(cursor.getColumnIndex(HipotecaDbAdapter.C_COLUMNA_PASIVO)).equals("S"))
+        {
+            tv.setTextColor(Color.GRAY);
+        }
+        else
+        {
+            tv.setTextColor(Color.BLACK);
+        }
+    }
 
 	@Override
 	public View newView(Context context, Cursor cursor, ViewGroup parent)

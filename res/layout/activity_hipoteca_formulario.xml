@@ -117,29 +117,39 @@
 	        android:ems="10"
 	        android:inputType="textMultiLine">
 	    </EditText>
-	    
-	<LinearLayout
-        android:id="@+id/botonera"
-        android:layout_width="match_parent"
+
+<CheckBox
+    android:id="@+id/pasivo"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_alignLeft="@+id/observaciones"
+    android:layout_below="@+id/observaciones"
+    android:layout_marginTop="20dp"
+    android:text="@string/label_pasivo" />
+
+
+<LinearLayout
+    android:id="@+id/botonera"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_below="@id/pasivo"
+    android:gravity="center"
+    android:layout_marginTop="20dp"
+    android:orientation="horizontal" >
+
+    <Button
+        android:id="@+id/boton_cancelar"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/observaciones"
-        android:gravity="center"
-        android:layout_marginTop="20dp"
-        android:orientation="horizontal" >
+        android:text="@string/boton_cancelar" />
 
-        <Button
-            android:id="@+id/boton_cancelar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boton_cancelar" />
+    <Button
+        android:id="@+id/boton_guardar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/boton_guardar" />
 
-        <Button
-            android:id="@+id/boton_guardar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/boton_guardar" />
-
-    </LinearLayout>
+</LinearLayout>
 	    
 	</RelativeLayout>
 </ScrollView>

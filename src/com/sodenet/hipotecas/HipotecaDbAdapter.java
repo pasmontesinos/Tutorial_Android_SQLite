@@ -14,26 +14,35 @@ public class HipotecaDbAdapter {
 	 */
 	public static final String C_TABLA = "HIPOTECA" ;
 	
-	/**
-	 * Definimos constantes con el nombre de las columnas de la tabla
-	 */
-	public static final String C_COLUMNA_ID	= "_id";
-	public static final String C_COLUMNA_NOMBRE = "hip_nombre";
-	public static final String C_COLUMNA_CONDICIONES = "hip_condiciones";
-	public static final String C_COLUMNA_CONTACTO = "hip_contacto";
-	public static final String C_COLUMNA_EMAIL = "hip_email";
-	public static final String C_COLUMNA_TELEFONO = "hip_telefono";
-	public static final String C_COLUMNA_OBSERVACIONES = "hip_observaciones";
+    /**
+     * Definimos constantes con el nombre de las columnas de la tabla
+     */
+    public static final String C_COLUMNA_ID	= "_id";
+    public static final String C_COLUMNA_NOMBRE = "hip_nombre";
+    public static final String C_COLUMNA_CONDICIONES = "hip_condiciones";
+    public static final String C_COLUMNA_CONTACTO = "hip_contacto";
+    public static final String C_COLUMNA_EMAIL = "hip_email";
+    public static final String C_COLUMNA_TELEFONO = "hip_telefono";
+    public static final String C_COLUMNA_OBSERVACIONES = "hip_observaciones";
+    public static final String C_COLUMNA_PASIVO = "hip_pasivo_sn";
 	
 	
 	private Context contexto;
 	private HipotecaDbHelper dbHelper;
 	private SQLiteDatabase db;
 	
-	/**
-	 * Definimos lista de columnas de la tabla para utilizarla en las consultas a la base de datos
-	 */
-	private String[] columnas = new String[]{ C_COLUMNA_ID, C_COLUMNA_NOMBRE, C_COLUMNA_CONDICIONES, C_COLUMNA_CONTACTO, C_COLUMNA_EMAIL, C_COLUMNA_TELEFONO, C_COLUMNA_OBSERVACIONES} ;
+    /**
+     * Definimos lista de columnas de la tabla para utilizarla en las consultas a la base de datos
+     */
+    private String[] columnas = new String[]{
+            C_COLUMNA_ID,
+            C_COLUMNA_NOMBRE,
+            C_COLUMNA_CONDICIONES,
+            C_COLUMNA_CONTACTO,
+            C_COLUMNA_EMAIL,
+            C_COLUMNA_TELEFONO,
+            C_COLUMNA_OBSERVACIONES,
+            C_COLUMNA_PASIVO} ;
 
 	public HipotecaDbAdapter(Context context)
 	{
