@@ -1,0 +1,145 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".HipotecaFormulario" >
+
+	<RelativeLayout
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:orientation="vertical"
+	    android:padding="10dp" >
+
+	    <TextView
+	        android:id="@+id/label_nombre"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_nombre_hipoteca"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <EditText
+	        android:id="@+id/nombre"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/label_nombre"
+	        android:ems="10" />
+	
+	    <TextView
+	        android:id="@+id/label_condiciones"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_condiciones"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_below="@+id/nombre"
+	        android:layout_marginTop="20dp" />
+	    
+	    <EditText
+	        android:id="@+id/condiciones"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/label_condiciones"
+	        android:ems="10"
+	        android:inputType="textMultiLine">
+	    </EditText>
+	    
+	    <TextView
+	        android:id="@+id/label_contacto"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_contacto"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_below="@+id/condiciones"
+	        android:layout_marginTop="20dp" />
+	    
+	    <EditText
+	        android:id="@+id/contacto"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/label_contacto"
+	        android:ems="10">
+	    </EditText>
+	    
+	    <TextView
+	        android:id="@+id/label_telefono"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_telefono"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_below="@+id/contacto"
+	        android:layout_marginTop="20dp" />
+	    
+	    <EditText
+	        android:id="@+id/telefono"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/label_telefono"
+	        android:ems="10"
+	        android:inputType="phone" >
+	    </EditText>
+	    
+	    <TextView
+	        android:id="@+id/label_email"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/telefono"
+	        android:layout_marginTop="20dp"
+	        android:text="@string/label_email"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    
+	   <EditText
+	        android:id="@+id/email"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/label_email"
+	        android:ems="10"
+	        android:inputType="textEmailAddress"/>
+
+    	<TextView
+	        android:id="@+id/label_observaciones"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:text="@string/label_observaciones"
+	        android:textAppearance="?android:attr/textAppearanceMedium"
+	        android:layout_below="@+id/email"
+	        android:layout_marginTop="20dp" />
+	    
+	    <EditText
+	        android:id="@+id/observaciones"
+	        android:layout_width="match_parent"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/label_observaciones"
+	        android:ems="10"
+	        android:inputType="textMultiLine">
+	    </EditText>
+	    
+	<LinearLayout
+        android:id="@+id/botonera"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/observaciones"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/boton_cancelar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_cancelar" />
+
+        <Button
+            android:id="@+id/boton_guardar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/boton_guardar" />
+
+    </LinearLayout>
+	    
+	</RelativeLayout>
+</ScrollView>

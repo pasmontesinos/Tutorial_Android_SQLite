@@ -1,0 +1,11 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    	<item
+		    android:id="@+id/menu_guardar"
+		    android:title="@string/menu_guardar" />
+    	
+    	<item
+		    android:id="@+id/menu_cancelar"
+		    android:title="@string/menu_cancelar" />
+    	
+</menu>
