@@ -14,42 +14,49 @@ import android.view.View;
 import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.preference.PreferenceManager;
+import android.content.SharedPreferences;
 
 public class Hipoteca extends ListActivity {
 	
-	public static final String C_MODO  = "modo" ;
-	public static final int C_VISUALIZAR = 551 ;
-	public static final int C_CREAR = 552 ;
-	public static final int C_EDITAR = 553 ;
-	public static final int C_ELIMINAR = 554 ;
+    public static final String C_MODO  = "modo" ;
+    public static final int C_VISUALIZAR = 551 ;
+    public static final int C_CREAR = 552 ;
+    public static final int C_EDITAR = 553 ;
+    public static final int C_ELIMINAR = 554 ;
+    public static final int C_CONFIGURAR = 555 ;
 		
 	private HipotecaDbAdapter dbAdapter;
     private Cursor cursor; 
     private HipotecaCursorAdapter hipotecaAdapter ;
     private ListView lista;
-	
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_hipoteca);
-		
-		lista = (ListView) findViewById(android.R.id.list);
-		
-		dbAdapter = new HipotecaDbAdapter(this);
-		dbAdapter.abrir();
-		
-		consultar();
-		
-		registerForContextMenu(this.getListView());
-	}
 
-	private void consultar()
-	{
-		cursor = dbAdapter.getCursor();
-		startManagingCursor(cursor);
-		hipotecaAdapter = new HipotecaCursorAdapter(this, cursor);
-		lista.setAdapter(hipotecaAdapter);
-	}
+    private String filtro ;
+	
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_hipoteca);
+
+        getPreferencias();
+
+        lista = (ListView) findViewById(android.R.id.list);
+
+        dbAdapter = new HipotecaDbAdapter(this);
+        dbAdapter.abrir();
+
+        consultar();
+
+        registerForContextMenu(this.getListView());
+    }
+
+    private void consultar()
+    {
+        cursor = dbAdapter.getCursor(filtro);
+        startManagingCursor(cursor);
+        hipotecaAdapter = new HipotecaCursorAdapter(this, cursor);
+        lista.setAdapter(hipotecaAdapter);
+    }
 		
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -76,42 +83,53 @@ public class Hipoteca extends ListActivity {
 		visualizar(id);
 	}
 
-	@Override
-	public boolean onMenuItemSelected(int featureId, MenuItem item)
-	{
-		Intent i;
-		
-		switch (item.getItemId())
-		{
-			case R.id.menu_crear:
-				i = new Intent(Hipoteca.this, HipotecaFormulario.class);
-				i.putExtra(C_MODO, C_CREAR);
-				startActivityForResult(i, C_CREAR);
-				return true;
-		}
-		return super.onMenuItemSelected(featureId, item);
-	}
+    @Override
+    public boolean onMenuItemSelected(int featureId, MenuItem item)
+    {
+        Intent i;
+
+        switch (item.getItemId())
+        {
+            case R.id.menu_crear:
+                i = new Intent(Hipoteca.this, HipotecaFormulario.class);
+                i.putExtra(C_MODO, C_CREAR);
+                startActivityForResult(i, C_CREAR);
+                return true;
+
+            case R.id.menu_preferencias:
+                i = new Intent(Hipoteca.this, Configuracion.class);
+                startActivityForResult(i, C_CONFIGURAR);
+                return true;
+        }
+        return super.onMenuItemSelected(featureId, item);
+    }
 	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data)
-	{
-		//
-		// Nos aseguramos que es la petición que hemos realizado
-		//
-		switch(requestCode)
-		{
-			case C_CREAR:
-				if (resultCode == RESULT_OK)
-					consultar();
-				
-			case C_VISUALIZAR:
-				if (resultCode == RESULT_OK)
-					consultar();
-				
-			default:
-				super.onActivityResult(requestCode, resultCode, data);
-		}
-	}
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        //
+        // Nos aseguramos que es la petición que hemos realizado
+        //
+        switch(requestCode)
+        {
+            case C_CREAR:
+                if (resultCode == RESULT_OK)
+                    consultar();
+
+            case C_VISUALIZAR:
+                if (resultCode == RESULT_OK)
+                    consultar();
+
+            case C_CONFIGURAR:
+                // en la PreferenceActivity no hemos definido ningún resultado por lo que recargamos
+                // siempre las preferencias
+                getPreferencias();
+                consultar();
+
+            default:
+                super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 	
 	private void borrar(final long id)
 	{
@@ -175,4 +193,23 @@ public class Hipoteca extends ListActivity {
 	    }
 	    return super.onContextItemSelected(item);
 	}
+
+    private void getPreferencias()
+    {
+        //
+        // Recuperamos las preferencias
+        //
+        SharedPreferences preferencias = PreferenceManager.getDefaultSharedPreferences(this);
+
+        if (preferencias.getBoolean("ocultar_registros_pasivos", false))
+        {
+            // si se ocultan registros pasivos filtramos solamente los que tengan el valor 'N'
+            this.filtro = HipotecaDbAdapter.C_COLUMNA_PASIVO + " = 'N' " ;
+        }
+        else
+        {
+            // si no se ocultan registros pasivos no filtramos
+            this.filtro = null ;
+        }
+    }
 }

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <PreferenceCategory android:title="Filtrado de datos">
+        <CheckBoxPreference
+                android:title="Ocultar registros pasivos"
+                android:key="ocultar_registros_pasivos"
+                android:summary="Ocultar los registros marcados como pasivos"
+                android:defaultValue="false"/>
+    </PreferenceCategory>
+
+</PreferenceScreen>

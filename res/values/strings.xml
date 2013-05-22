@@ -5,7 +5,7 @@
     <string name="action_settings">Settings</string>
     <string name="lista_vacia">Sin Datos</string>
     <string name="title_activity_hipoteca_formulario">Hipoteca Formulario</string>
-    <string name="menu_settings">Configuración</string>
+    <string name="menu_preferencias">Configuración</string>
     <string name="menu_crear">Nuevo</string>
     <string name="menu_editar">Editar</string>
     <string name="menu_guardar">Guardar</string>

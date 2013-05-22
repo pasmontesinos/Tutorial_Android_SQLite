@@ -4,4 +4,8 @@
         android:id="@+id/menu_crear"
 		android:title="@string/menu_crear" />
 
+    <item
+        android:id="@+id/menu_preferencias"
+        android:title="@string/menu_preferencias" />
+
 </menu>

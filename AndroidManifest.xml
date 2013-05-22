@@ -26,6 +26,7 @@
             android:name="com.sodenet.hipotecas.HipotecaFormulario"
             android:label="@string/title_activity_hipoteca_formulario" >
         </activity>
+        <activity android:name=".Configuracion" android:label="Configuracion"/>
     </application>
 
 </manifest>

@@ -62,15 +62,15 @@ public class HipotecaDbAdapter {
 	}
 
 	
-	/**
-	 * Devuelve cursor con todos los registros y columnas de la tabla
-	 */
-	public Cursor getCursor() throws SQLException
-	{
-		Cursor c = db.query( true, C_TABLA, columnas, null, null, null, null, null, null);
-		
-		return c;
-	}
+    /**
+     * Devuelve cursor con todos los registros y columnas de la tabla
+     */
+    public Cursor getCursor(String filtro) throws SQLException
+    {
+        Cursor c = db.query( true, C_TABLA, columnas, filtro, null, null, null, null, null);
+
+        return c;
+    }
 	
 	/**
 	 * Devuelve cursor con todos las columnas del registro
