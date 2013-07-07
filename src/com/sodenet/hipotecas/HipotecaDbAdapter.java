@@ -9,14 +9,14 @@ import android.database.sqlite.SQLiteDatabase;
 
 public class HipotecaDbAdapter {
 
-	/**
-	 * Definimos constante con el nombre de la tabla
-	 */
+	//
+	// Definimos constante con el nombre de la tabla
+	//
 	public static final String C_TABLA = "HIPOTECA" ;
 	
-    /**
-     * Definimos constantes con el nombre de las columnas de la tabla
-     */
+    //
+    // Definimos constantes con el nombre de las columnas de la tabla
+    //
     public static final String C_COLUMNA_ID	= "_id";
     public static final String C_COLUMNA_NOMBRE = "hip_nombre";
     public static final String C_COLUMNA_CONDICIONES = "hip_condiciones";
@@ -25,15 +25,16 @@ public class HipotecaDbAdapter {
     public static final String C_COLUMNA_TELEFONO = "hip_telefono";
     public static final String C_COLUMNA_OBSERVACIONES = "hip_observaciones";
     public static final String C_COLUMNA_PASIVO = "hip_pasivo_sn";
-	
-	
-	private Context contexto;
-	private HipotecaDbHelper dbHelper;
-	private SQLiteDatabase db;
-	
-    /**
-     * Definimos lista de columnas de la tabla para utilizarla en las consultas a la base de datos
-     */
+    public static final String C_COLUMNA_SITUACION = "hip_sit_id";
+
+
+    private Context contexto;
+    private HipotecaDbHelper dbHelper;
+    private SQLiteDatabase db;
+
+    //
+    // Definimos lista de columnas de la tabla para utilizarla en las consultas a la base de datos
+    //
     private String[] columnas = new String[]{
             C_COLUMNA_ID,
             C_COLUMNA_NOMBRE,
@@ -42,7 +43,8 @@ public class HipotecaDbAdapter {
             C_COLUMNA_EMAIL,
             C_COLUMNA_TELEFONO,
             C_COLUMNA_OBSERVACIONES,
-            C_COLUMNA_PASIVO} ;
+            C_COLUMNA_PASIVO,
+            C_COLUMNA_SITUACION} ;
 
 	public HipotecaDbAdapter(Context context)
 	{
@@ -108,30 +110,30 @@ public class HipotecaDbAdapter {
 		return db.delete(C_TABLA, "_id=" + id, null);
 	}
 	
-/**
- * Modificar el registro
- */
-public long update(ContentValues reg)
-{
-	long result = 0;
-	
-	if (db == null)
-		abrir();
-	
-	if (reg.containsKey(C_COLUMNA_ID))
-	{
-		//
-		// Obtenemos el id y lo borramos de los valores
-		//
-		long id = reg.getAsLong(C_COLUMNA_ID);
-		
-		reg.remove(C_COLUMNA_ID);
-		
-		//
-		// Actualizamos el registro con el identificador que hemos extraido 
-		//
-		result = db.update(C_TABLA, reg, "_id=" + id, null); 
-	}
-	return result;
-}
+    /**
+     * Modificar el registro
+     */
+    public long update(ContentValues reg)
+    {
+        long result = 0;
+
+        if (db == null)
+            abrir();
+
+        if (reg.containsKey(C_COLUMNA_ID))
+        {
+            //
+            // Obtenemos el id y lo borramos de los valores
+            //
+            long id = reg.getAsLong(C_COLUMNA_ID);
+
+            reg.remove(C_COLUMNA_ID);
+
+            //
+            // Actualizamos el registro con el identificador que hemos extraido
+            //
+            result = db.update(C_TABLA, reg, "_id=" + id, null);
+        }
+        return result;
+    }
 }

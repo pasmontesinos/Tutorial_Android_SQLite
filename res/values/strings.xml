@@ -19,6 +19,7 @@
     <string name="label_email">E-Mail:</string>
     <string name="label_observaciones">Observaciones:</string>
     <string name="label_pasivo">Pasivo</string>
+    <string name="label_situacion">Situación</string>
 
     <string name="boton_guardar">Guardar</string>
     <string name="boton_cancelar">Cancelar</string>

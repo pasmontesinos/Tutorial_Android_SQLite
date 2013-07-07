@@ -24,6 +24,22 @@
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@+id/label_nombre"
 	        android:ems="10" />
+
+        <TextView
+                android:id="@+id/label_situacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/label_situacion"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:layout_below="@+id/nombre"
+                android:layout_marginTop="20dp" />
+
+        <Spinner
+                android:id="@+id/situacion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/label_situacion"
+                android:ems="10"/>
 	
 	    <TextView
 	        android:id="@+id/label_condiciones"
@@ -31,7 +47,7 @@
 	        android:layout_height="wrap_content"
 	        android:text="@string/label_condiciones"
 	        android:textAppearance="?android:attr/textAppearanceMedium"
-	        android:layout_below="@+id/nombre"
+	        android:layout_below="@+id/situacion"
 	        android:layout_marginTop="20dp" />
 	    
 	    <EditText
@@ -150,6 +166,7 @@
         android:text="@string/boton_guardar" />
 
 </LinearLayout>
-	    
-	</RelativeLayout>
+
+
+    </RelativeLayout>
 </ScrollView>
