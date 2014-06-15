@@ -136,4 +136,23 @@ public class HipotecaDbAdapter {
         }
         return result;
     }
+
+    /**
+     * Comprueba si existe el registro
+     */
+    public boolean exists(long id) throws SQLException
+    {
+        boolean exists ;
+
+        if (db == null)
+            abrir();
+
+        Cursor c = db.query( true, C_TABLA, columnas, C_COLUMNA_ID + "=" + id, null, null, null, null, null);
+
+        exists = (c.getCount() > 0);
+
+        c.close();
+
+        return exists;
+    }
 }
