@@ -2,6 +2,7 @@ package com.sodenet.hipotecas;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.CursorLoader;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -67,9 +68,8 @@ public class HipotecaDbAdapter {
     /**
      * Devuelve cursor con todos los registros y columnas de la tabla
      */
-    public Cursor getCursor(String filtro) throws SQLException
-    {
-        Cursor c = db.query( true, C_TABLA, columnas, filtro, null, null, null, null, null);
+    public Cursor getCursor(String filtro) throws SQLException {
+        Cursor c = db.query(true, C_TABLA, columnas, filtro, null, null, null, null, null);
 
         return c;
     }

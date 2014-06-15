@@ -17,7 +17,7 @@ import android.widget.Toast;
 import android.preference.PreferenceManager;
 import android.content.SharedPreferences;
 
-public class Hipoteca extends ListActivity {
+public class HipotecaActivity extends ListActivity{
 	
     public static final String C_MODO  = "modo" ;
     public static final int C_VISUALIZAR = 551 ;
@@ -52,6 +52,8 @@ public class Hipoteca extends ListActivity {
 
     private void consultar()
     {
+
+
         cursor = dbAdapter.getCursor(filtro);
         startManagingCursor(cursor);
         hipotecaAdapter = new HipotecaCursorAdapter(this, cursor);
@@ -68,7 +70,7 @@ public class Hipoteca extends ListActivity {
 	private void visualizar(long id)
 	{
 		// Llamamos a la Actividad HipotecaFormulario indicando el modo visualización y el identificador del registro 
-		Intent i = new Intent(Hipoteca.this, HipotecaFormulario.class);
+		Intent i = new Intent(HipotecaActivity.this, HipotecaFormulario.class);
 		i.putExtra(C_MODO, C_VISUALIZAR);
 		i.putExtra(HipotecaDbAdapter.C_COLUMNA_ID, id);
 										
@@ -91,13 +93,13 @@ public class Hipoteca extends ListActivity {
         switch (item.getItemId())
         {
             case R.id.menu_crear:
-                i = new Intent(Hipoteca.this, HipotecaFormulario.class);
+                i = new Intent(HipotecaActivity.this, HipotecaFormulario.class);
                 i.putExtra(C_MODO, C_CREAR);
                 startActivityForResult(i, C_CREAR);
                 return true;
 
             case R.id.menu_preferencias:
-                i = new Intent(Hipoteca.this, Configuracion.class);
+                i = new Intent(HipotecaActivity.this, Configuracion.class);
                 startActivityForResult(i, C_CONFIGURAR);
                 return true;
         }
@@ -147,7 +149,7 @@ public class Hipoteca extends ListActivity {
 
 			public void onClick(DialogInterface dialog, int boton) {
 				dbAdapter.delete(id);
-				Toast.makeText(Hipoteca.this, R.string.hipoteca_eliminar_confirmacion, Toast.LENGTH_SHORT).show();
+				Toast.makeText(HipotecaActivity.this, R.string.hipoteca_eliminar_confirmacion, Toast.LENGTH_SHORT).show();
 				consultar();				
 			}
 		});
@@ -184,7 +186,7 @@ public class Hipoteca extends ListActivity {
 				return true;
 				
 	    	case C_EDITAR:
-	    		i = new Intent(Hipoteca.this, HipotecaFormulario.class);
+	    		i = new Intent(HipotecaActivity.this, HipotecaFormulario.class);
 	    		i.putExtra(C_MODO, C_EDITAR);
 	    		i.putExtra(HipotecaDbAdapter.C_COLUMNA_ID, info.id);
 				

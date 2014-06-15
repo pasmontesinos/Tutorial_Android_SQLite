@@ -105,7 +105,7 @@ public class HipotecaFormulario extends Activity {
 		//
 		// Establecemos el modo del formulario
 		//
-		establecerModo(extra.getInt(Hipoteca.C_MODO));
+		establecerModo(extra.getInt(HipotecaActivity.C_MODO));
 		
 		//
 		// Definimos las acciones para los dos botones
@@ -134,17 +134,17 @@ public class HipotecaFormulario extends Activity {
     {
         this.modo = m ;
 
-        if (modo == Hipoteca.C_VISUALIZAR)
+        if (modo == HipotecaActivity.C_VISUALIZAR)
         {
             this.setTitle(nombre.getText().toString());
             this.setEdicion(false);
         }
-        else if (modo == Hipoteca.C_CREAR)
+        else if (modo == HipotecaActivity.C_CREAR)
         {
             this.setTitle(R.string.hipoteca_crear_titulo);
             this.setEdicion(true);
         }
-        else if (modo == Hipoteca.C_EDITAR)
+        else if (modo == HipotecaActivity.C_EDITAR)
         {
             this.setTitle(R.string.hipoteca_editar_titulo);
             this.setEdicion(true);
@@ -200,7 +200,7 @@ private void guardar()
     //
     // Si estamos en modo edición añadimos el identificador del registro que se utilizará en el update
     //
-    if (modo == Hipoteca.C_EDITAR)
+    if (modo == HipotecaActivity.C_EDITAR)
         reg.put(HipotecaDbAdapter.C_COLUMNA_ID, id);
 
     reg.put(HipotecaDbAdapter.C_COLUMNA_NOMBRE, nombre.getText().toString());
@@ -212,12 +212,12 @@ private void guardar()
     reg.put(HipotecaDbAdapter.C_COLUMNA_PASIVO, (pasivo.isChecked())?"S":"N");
     reg.put(HipotecaDbAdapter.C_COLUMNA_SITUACION, situacion.getSelectedItemId());
 
-    if (modo == Hipoteca.C_CREAR)
+    if (modo == HipotecaActivity.C_CREAR)
     {
         dbAdapter.insert(reg);
         Toast.makeText(HipotecaFormulario.this, R.string.hipoteca_crear_confirmacion, Toast.LENGTH_SHORT).show();
     }
-    else if (modo == Hipoteca.C_EDITAR)
+    else if (modo == HipotecaActivity.C_EDITAR)
     {
         Toast.makeText(HipotecaFormulario.this, R.string.hipoteca_editar_confirmacion, Toast.LENGTH_SHORT).show();
         dbAdapter.update(reg);
@@ -241,7 +241,7 @@ private void guardar()
 
 		menu.clear();
 	    
-		if (modo == Hipoteca.C_VISUALIZAR)
+		if (modo == HipotecaActivity.C_VISUALIZAR)
 			getMenuInflater().inflate(R.menu.hipoteca_formulario_ver, menu);
 		
 		else
@@ -268,7 +268,7 @@ public boolean onMenuItemSelected(int featureId, MenuItem item) {
 			return true;
 			
 		case R.id.menu_editar:
-			establecerModo(Hipoteca.C_EDITAR);
+			establecerModo(HipotecaActivity.C_EDITAR);
 			return true;
 	}
 	
