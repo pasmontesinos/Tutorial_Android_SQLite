@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 
+import java.util.ArrayList;
+
 
 public class HipotecaDbAdapter {
 
@@ -69,6 +71,10 @@ public class HipotecaDbAdapter {
      * Devuelve cursor con todos los registros y columnas de la tabla
      */
     public Cursor getCursor(String filtro) throws SQLException {
+
+        if (db == null)
+            abrir();
+
         Cursor c = db.query(true, C_TABLA, columnas, filtro, null, null, null, null, null);
 
         return c;
@@ -79,7 +85,10 @@ public class HipotecaDbAdapter {
 	 */
 	public Cursor getRegistro(long id) throws SQLException
 	{
-		Cursor c = db.query( true, C_TABLA, columnas, C_COLUMNA_ID + "=" + id, null, null, null, null, null);
+        if (db == null)
+            abrir();
+
+        Cursor c = db.query( true, C_TABLA, columnas, C_COLUMNA_ID + "=" + id, null, null, null, null, null);
 		
 		//Nos movemos al primer registro de la consulta
 		if (c != null) {
@@ -155,4 +164,26 @@ public class HipotecaDbAdapter {
 
         return exists;
     }
+
+    public ArrayList<Hipoteca> getHipotecas(String filtro)
+    {
+        ArrayList<Hipoteca> hipotecas = new ArrayList<Hipoteca>();
+
+        if (db == null)
+            abrir();
+
+        Cursor c = db.query(true, C_TABLA, columnas, filtro, null, null, null, null, null);
+
+        for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext())
+        {
+            hipotecas.add(Hipoteca.cursorToHipoteca(contexto, c));
+        }
+
+        c.close();
+
+        return hipotecas;
+    }
+
+
+
 }
