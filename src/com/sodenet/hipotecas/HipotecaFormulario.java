@@ -2,25 +2,24 @@ package com.sodenet.hipotecas;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.*;
-import com.sodenet.hipotecas.Hipoteca;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 public class HipotecaFormulario extends Activity {
 	
-	private HipotecaDbAdapter dbAdapter;
-    private Cursor cursor;
+	private SituacionDbAdapter dbAdapterSituacion ;
+    private SituacionSpinnerAdapter situacionSpinnerAdapter ;
 
-    private SituacionDbAdapter dbAdapterSituacion ;
-    private Cursor cursorListaSituacion ;
-	
 	//
     // Modo del formulario
     //
@@ -30,6 +29,7 @@ public class HipotecaFormulario extends Activity {
 	// Identificador del registro que se edita cuando la opción es MODIFICAR
 	//
 	private long id ;
+    private Hipoteca hipoteca = new Hipoteca(this);
 	
     //
     // Elementos de la vista
@@ -72,28 +72,13 @@ public class HipotecaFormulario extends Activity {
 
 		boton_guardar = (Button) findViewById(R.id.boton_guardar);
 		boton_cancelar = (Button) findViewById(R.id.boton_cancelar);
-		
-		//
-        // Creamos el adaptador de Situacion
-        //
-        dbAdapterSituacion = new SituacionDbAdapter(this) ;
-        dbAdapterSituacion.abrir();
-
-        cursorListaSituacion = dbAdapterSituacion.getLista();
-
-
-        SimpleCursorAdapter adapterSituacion = new SimpleCursorAdapter(this,android.R.layout.simple_spinner_item,cursorListaSituacion,new String[] {SituacionDbAdapter.C_COLUMNA_NOMBRE}, new int[] {android.R.id.text1});
-
-        adapterSituacion.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-
-        situacion.setAdapter(adapterSituacion);
 
         //
-		// Creamos el adaptador  
-		//
-		dbAdapter = new HipotecaDbAdapter(this);
-		dbAdapter.abrir();
-		
+        // Creamos el adaptador del spinner de situaciones y lo asociamos
+        //
+        situacionSpinnerAdapter = new SituacionSpinnerAdapter(this, Situacion.getAll(this, null));
+        situacion.setAdapter(situacionSpinnerAdapter);
+
 		//
 		// Obtenemos el identificador del registro si viene indicado
 		//
@@ -157,7 +142,7 @@ private void consultar(long id)
     //
     // Consultamos la hipoteca por el identificador
     //
-    Hipoteca hipoteca = Hipoteca.find(this, id);
+    hipoteca = Hipoteca.find(this, id);
 
     nombre.setText(hipoteca.getNombre());
     condiciones.setText(hipoteca.getCondiciones());
@@ -166,7 +151,8 @@ private void consultar(long id)
     email.setText(hipoteca.getEmail());
     observaciones.setText(hipoteca.getObservaciones());
     pasivo.setChecked(hipoteca.isPasivo());
-    situacion.setSelection(getItemPositionById(cursorListaSituacion, hipoteca.getSituacionId()));
+    situacion.setSelection(situacionSpinnerAdapter.getPositionById(hipoteca.getSituacionId()));
+
 }
 
 private void setEdicion(boolean opcion)
@@ -192,17 +178,6 @@ private void setEdicion(boolean opcion)
 	
 private void guardar()
 {
-    Hipoteca hipoteca ;
-
-    if (this.modo == HipotecaActivity.C_EDITAR)
-    {
-        hipoteca = Hipoteca.find(this, this.id);
-    }
-    else
-    {
-        hipoteca = new Hipoteca(this) ;
-    }
-
     hipoteca.setNombre(nombre.getText().toString());
     hipoteca.setCondiciones(condiciones.getText().toString());
     hipoteca.setContacto(contacto.getText().toString());
@@ -290,7 +265,7 @@ public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		dialogEliminar.setPositiveButton(getResources().getString(android.R.string.ok), new DialogInterface.OnClickListener() {
 
 			public void onClick(DialogInterface dialog, int boton) {
-				dbAdapter.delete(id);
+				hipoteca.delete();
 				Toast.makeText(HipotecaFormulario.this, R.string.hipoteca_eliminar_confirmacion, Toast.LENGTH_SHORT).show();
 				/*
 				 * Devolvemos el control
@@ -305,18 +280,5 @@ public boolean onMenuItemSelected(int featureId, MenuItem item) {
 		dialogEliminar.show();
 		
 	}
-
-private int getItemPositionById(Cursor c, long id)
-{
-    for(c.moveToFirst(); !c.isAfterLast(); c.moveToNext())
-    {
-        if (c.getLong(c.getColumnIndex(SituacionDbAdapter.C_COLUMNA_ID)) == id)
-        {
-            return c.getPosition() ;
-        }
-    }
-
-    return 0 ;
-}
 
 }
